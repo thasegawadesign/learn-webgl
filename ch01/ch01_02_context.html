@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebGLの学習</title>
+    <style type="text/css">
+      canvas {
+        border: 5px dotted blue;
+      }
+    </style>
+    <script type="text/javascript">
+      'use strict';
+
+      function init() {
+        const canvas = document.getElementById('webgl-canvas');
+
+        if (!canvas) {
+          console.error('Sorry! No HTML5 Canvas was found on thid page');
+          return;
+        }
+
+        const gl = canvas.getContext('webgl2');
+
+        const message = gl
+          ? 'Hooray! You got a WegGL2 context'
+          : 'Sorry! WebGL is not available';
+
+        alert(message);
+      }
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <canvas id="webgl-canvas" width="800" height="600">
+      Your browser does not support the HTML5 canvas element.
+    </canvas>
+  </body>
+</html>
