@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebGLの学習</title>
+    <script type="text/javascript" src="/common/js/utils.js"></script>
+    <style type="text/css">
+      canvas {
+        border: 5px dotted blue;
+      }
+    </style>
+    <script type="text/javascript">
+      'use strict';
+
+      let gl;
+
+      function initBuffers() {
+        /*
+        V0                    V3
+        (-0.5, 0.5, 0)        (0.5, 0.5, 0)
+        X---------------------X
+        |                     |
+        |                     |
+        |       (0, 0)        |
+        |                     |
+        |                     |
+        X---------------------X
+        V1                    V2
+        (-0.5, -0.5, 0)       (0.5, -0.5, 0)
+      */
+        const vertices = [
+          -0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0,
+        ];
+
+        // 反時計回りで定義されたインデックス
+        const indices = [0, 1, 2, 0, 2, 3];
+
+        // VBO(頂点バッファオブジェクト)の準備
+        squareVertexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+        gl.bufferData(
+          gl.ARRAY_BUFFER,
+          new Float32Array(vertices),
+          gl.STATIC_DRAW
+        );
+
+        // IBO(インデックスバッファオブジェクト)の準備
+        squareIndexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+        gl.bufferData(
+          gl.ELEMENT_ARRAY_BUFFER,
+          new Uint16Array(indices),
+          gl.STATIC_DRAW
+        );
+
+        // クリア
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+      }
+
+      function init() {
+        const canvas = utils.getCanvas('webgl-canvas');
+        gl = utils.getGLContext(canvas);
+      }
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <canvas id="webgl-canvas" width="800" height="600">
+      Your browser does not support the HTML5 canvas element.
+    </canvas>
+  </body>
+</html>
